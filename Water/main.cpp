@@ -1,12 +1,13 @@
-#include "Window/window.h"
+#include "point_data.h"
 
 using namespace std;
+
+glm::vec3 MoveCamera(GLFWwindow *window, GLfloat deltaTime, glm::vec3 camPos, glm::vec3 camFront, glm::vec3 camUp);
 
 int main( )
 {
     // Create Window
     Window W("Water", 800, 600);
-    
     glfwMakeContextCurrent( W.window );
     
     glEnable(GL_DEPTH_TEST);
@@ -19,65 +20,6 @@ int main( )
     
     // Build and compile shader program
     Shader core_shader( "resources/shaders/core.vs", "resources/shaders/core.frag" );
-    
-    
-    // Set up vertex data
-    vector<GLfloat> vertices = {
-        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-        0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-        
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-        0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-        0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        
-        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        
-        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-        0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-        0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
-    };
-    
-    glm::vec3 cubePositions[] = {
-        glm::vec3( 0.0f,  0.0f,  0.0f),
-        glm::vec3( 2.0f,  5.0f, -15.0f),
-        glm::vec3(-1.5f, -2.2f, -2.5f),
-        glm::vec3(-3.8f, -2.0f, -12.3f),
-        glm::vec3( 2.4f, -0.4f, -3.5f),
-        glm::vec3(-1.7f,  3.0f, -7.5f),
-        glm::vec3( 1.3f, -2.0f, -2.5f),
-        glm::vec3( 1.5f,  2.0f, -2.5f),
-        glm::vec3( 1.5f,  0.2f, -1.5f),
-        glm::vec3(-1.3f,  1.0f, -1.5f)
-    };
 
     vector<int> attributeSize = {3, 2};
     W.GetAttributeInfo(attributeSize);
@@ -95,11 +37,30 @@ int main( )
     core_shader.setInt("texture1", 0);
     core_shader.setInt("texture2", 1);
     
+    // since we don't change projection
+    // move out of the while
+    glm::mat4 projection = glm::mat4(1.0f);
+    projection = glm::perspective(glm::radians(45.0f), (GLfloat)W.Width / (GLfloat)W.Height, 0.1f, 100.0f);
+    core_shader.setMat4("projection", projection);
+    
+    // set up camera axis
+    glm::vec3 cam_pos = glm::vec3(0.0f, 0.0f, 3.0f);
+    glm::vec3 cam_front = glm::vec3(0.0f, 0.0f, -1.0f);
+    glm::vec3 cam_up = glm::vec3(0.0f, 1.0f, 0.0f);
+    
+    // init timing
+    GLfloat deltaTime = 0.0f;
+    GLfloat lastFrame = 0.0f;
+    
     // Game loop
     while ( !glfwWindowShouldClose( W.window ) )
     {
-        // Check if any events have been activiated
-        glfwPollEvents( );
+        // get per-frame time
+        GLfloat currentFrame = glfwGetTime();
+        deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+        
+        cam_pos = MoveCamera(W.window, deltaTime, cam_pos, cam_front, cam_up);
         
         // Render
         // Clear the colorbuffer
@@ -112,13 +73,10 @@ int main( )
         
         core_shader.Use( );
         
-        // Tranformations
+        // rotate camera according to Y axis
         glm::mat4 view = glm::mat4(1.0f);
-        glm::mat4 projection = glm::mat4(1.0f);
-        view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
-        projection = glm::perspective(glm::radians(45.0f), (GLfloat)W.Width / (GLfloat)W.Height, 0.1f, 100.0f);
+        view  = glm::lookAt(cam_pos, cam_front + cam_pos, cam_up);
         core_shader.setMat4("view", view);
-        core_shader.setMat4("projection", projection);
         
         // Draw the triangle
         glBindVertexArray(W.VAO);
@@ -135,6 +93,8 @@ int main( )
         
         // Swap the screen buffers
         glfwSwapBuffers( W.window );
+        // Check if any events have been activiated
+        glfwPollEvents( );
     }
     
     // De-allocate VAO, VBO, EBO
@@ -146,3 +106,20 @@ int main( )
     return EXIT_SUCCESS;
 }
 
+glm::vec3 MoveCamera(GLFWwindow *window, GLfloat deltaTime, glm::vec3 camPos, glm::vec3 camFront, glm::vec3 camUp) {
+    GLfloat camSpeed = 2.5f * deltaTime;
+    if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
+        camPos += camSpeed * camFront;
+    }
+    if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
+        camPos -= glm::normalize(glm::cross(camFront, camUp)) * camSpeed;
+    }
+    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
+        camPos -= camSpeed * camFront;
+    }
+    if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
+        camPos += glm::normalize(glm::cross(camFront, camUp)) * camSpeed;
+    }
+    
+    return camPos;
+}

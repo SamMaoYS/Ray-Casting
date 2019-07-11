@@ -14,6 +14,7 @@
 		2205195222C6029F000A44D3 /* resources in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2205195022C6027D000A44D3 /* resources */; };
 		2255344822D6DB9900A73CCF /* window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2255344422D6DB9900A73CCF /* window.cpp */; };
 		2255344C22D6DDC500A73CCF /* stb_image_wrap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2255344B22D6DDC500A73CCF /* stb_image_wrap.cpp */; };
+		22A7764D22D70B2500828762 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A7764B22D70B2500828762 /* camera.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -50,6 +51,9 @@
 		2255344422D6DB9900A73CCF /* window.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = window.cpp; sourceTree = "<group>"; };
 		2255344A22D6DDBD00A73CCF /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
 		2255344B22D6DDC500A73CCF /* stb_image_wrap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stb_image_wrap.cpp; sourceTree = "<group>"; };
+		2255344E22D6F71500A73CCF /* point_data.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = point_data.h; sourceTree = "<group>"; };
+		22A7764B22D70B2500828762 /* camera.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = camera.cpp; sourceTree = "<group>"; };
+		22A7764C22D70B2500828762 /* camera.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = camera.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +91,9 @@
 			isa = PBXGroup;
 			children = (
 				2205192522C5E862000A44D3 /* main.cpp */,
+				2255344E22D6F71500A73CCF /* point_data.h */,
 				2205193F22C5F579000A44D3 /* Shader.h */,
+				22A7764A22D70B1200828762 /* Camera */,
 				2255344D22D6E0BC00A73CCF /* Window */,
 				2255344922D6DD5E00A73CCF /* StbImage */,
 				2205195022C6027D000A44D3 /* resources */,
@@ -121,6 +127,15 @@
 				2255344322D6DB9900A73CCF /* window.h */,
 			);
 			path = Window;
+			sourceTree = "<group>";
+		};
+		22A7764A22D70B1200828762 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				22A7764B22D70B2500828762 /* camera.cpp */,
+				22A7764C22D70B2500828762 /* camera.hpp */,
+			);
+			path = Camera;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -180,6 +195,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22A7764D22D70B2500828762 /* camera.cpp in Sources */,
 				2255344C22D6DDC500A73CCF /* stb_image_wrap.cpp in Sources */,
 				2255344822D6DB9900A73CCF /* window.cpp in Sources */,
 				2205192622C5E862000A44D3 /* main.cpp in Sources */,
