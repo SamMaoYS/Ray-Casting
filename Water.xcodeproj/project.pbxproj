@@ -12,8 +12,8 @@
 		2205194822C5FBFA000A44D3 /* libglfw.3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2205194622C5FBFA000A44D3 /* libglfw.3.3.dylib */; };
 		2205194922C5FBFA000A44D3 /* libGLEW.2.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2205194722C5FBFA000A44D3 /* libGLEW.2.1.0.dylib */; };
 		2205195222C6029F000A44D3 /* resources in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2205195022C6027D000A44D3 /* resources */; };
-		2282042A22C6A77A0046C069 /* stb_image_wrap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2282042922C6A77A0046C069 /* stb_image_wrap.cpp */; };
-		2282042E22C6D26C0046C069 /* window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2282042D22C6D26C0046C069 /* window.cpp */; };
+		2255344822D6DB9900A73CCF /* window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2255344422D6DB9900A73CCF /* window.cpp */; };
+		2255344C22D6DDC500A73CCF /* stb_image_wrap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2255344B22D6DDC500A73CCF /* stb_image_wrap.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -46,10 +46,10 @@
 		2205194622C5FBFA000A44D3 /* libglfw.3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.3.dylib; path = ../../../../usr/local/lib/libglfw.3.3.dylib; sourceTree = "<group>"; };
 		2205194722C5FBFA000A44D3 /* libGLEW.2.1.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.1.0.dylib; path = ../../../../usr/local/lib/libGLEW.2.1.0.dylib; sourceTree = "<group>"; };
 		2205195022C6027D000A44D3 /* resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = resources; sourceTree = "<group>"; };
-		2282042822C6A6340046C069 /* stb_image.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
-		2282042922C6A77A0046C069 /* stb_image_wrap.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = stb_image_wrap.cpp; sourceTree = "<group>"; };
-		2282042C22C6D1DC0046C069 /* window.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = window.h; sourceTree = "<group>"; };
-		2282042D22C6D26C0046C069 /* window.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = window.cpp; sourceTree = "<group>"; };
+		2255344322D6DB9900A73CCF /* window.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = window.h; sourceTree = "<group>"; };
+		2255344422D6DB9900A73CCF /* window.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = window.cpp; sourceTree = "<group>"; };
+		2255344A22D6DDBD00A73CCF /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
+		2255344B22D6DDC500A73CCF /* stb_image_wrap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stb_image_wrap.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,10 +87,9 @@
 			isa = PBXGroup;
 			children = (
 				2205192522C5E862000A44D3 /* main.cpp */,
-				2282042D22C6D26C0046C069 /* window.cpp */,
-				2282042C22C6D1DC0046C069 /* window.h */,
-				2282042822C6A6340046C069 /* stb_image.h */,
-				2282042922C6A77A0046C069 /* stb_image_wrap.cpp */,
+				2255344422D6DB9900A73CCF /* window.cpp */,
+				2255344322D6DB9900A73CCF /* window.h */,
+				2255344922D6DD5E00A73CCF /* StbImage */,
 				2205193F22C5F579000A44D3 /* Shader.h */,
 				2205195022C6027D000A44D3 /* resources */,
 			);
@@ -105,6 +104,15 @@
 				2205192D22C5E915000A44D3 /* OpenGL.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2255344922D6DD5E00A73CCF /* StbImage */ = {
+			isa = PBXGroup;
+			children = (
+				2255344B22D6DDC500A73CCF /* stb_image_wrap.cpp */,
+				2255344A22D6DDBD00A73CCF /* stb_image.h */,
+			);
+			path = StbImage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,9 +172,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2282042E22C6D26C0046C069 /* window.cpp in Sources */,
+				2255344C22D6DDC500A73CCF /* stb_image_wrap.cpp in Sources */,
+				2255344822D6DB9900A73CCF /* window.cpp in Sources */,
 				2205192622C5E862000A44D3 /* main.cpp in Sources */,
-				2282042A22C6A77A0046C069 /* stb_image_wrap.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,8 +232,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = /usr/local/include;
-				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
+					"$(inherited)",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -279,8 +293,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = /usr/local/include;
-				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
+					"$(inherited)",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -291,6 +311,7 @@
 		2205192A22C5E862000A44D3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -299,12 +320,14 @@
 					/usr/local/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
 		2205192B22C5E862000A44D3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -313,6 +336,7 @@
 					/usr/local/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};
