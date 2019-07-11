@@ -87,10 +87,9 @@
 			isa = PBXGroup;
 			children = (
 				2205192522C5E862000A44D3 /* main.cpp */,
-				2255344422D6DB9900A73CCF /* window.cpp */,
-				2255344322D6DB9900A73CCF /* window.h */,
-				2255344922D6DD5E00A73CCF /* StbImage */,
 				2205193F22C5F579000A44D3 /* Shader.h */,
+				2255344D22D6E0BC00A73CCF /* Window */,
+				2255344922D6DD5E00A73CCF /* StbImage */,
 				2205195022C6027D000A44D3 /* resources */,
 			);
 			path = Water;
@@ -113,6 +112,15 @@
 				2255344A22D6DDBD00A73CCF /* stb_image.h */,
 			);
 			path = StbImage;
+			sourceTree = "<group>";
+		};
+		2255344D22D6E0BC00A73CCF /* Window */ = {
+			isa = PBXGroup;
+			children = (
+				2255344422D6DB9900A73CCF /* window.cpp */,
+				2255344322D6DB9900A73CCF /* window.h */,
+			);
+			path = Window;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

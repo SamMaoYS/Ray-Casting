@@ -26,7 +26,7 @@
 
 // Other includes
 #include "Shader.h"
-#include "StbImage/stb_image.h"
+#include "../StbImage/stb_image.h"
 
 using namespace std;
 
