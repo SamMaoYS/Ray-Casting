@@ -29,13 +29,13 @@ int Window:: DefineViewPort() {
     {
         cout << "Failed to create GLFW window" << endl;
         glfwTerminate( );
-        
+
         return EXIT_FAILURE;
     }
-    
+
     glfwGetFramebufferSize( this->window, &this->screenWidth, &this->screenWidth );
     glViewport( 0, 0, this->screenWidth, this->screenWidth );
-    
+
     return EXIT_SUCCESS;
 }
 
@@ -153,3 +153,6 @@ void Window:: DeleteBuffers() {
     glDeleteBuffers( 1, &this->EBO );
 }
 
+//void Window:: GLFWFrameBufferSizeFunc(GLFWwindow *window, int width, int height) {
+//    glViewport( 0, 0, width, height);
+//}

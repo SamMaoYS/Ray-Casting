@@ -15,6 +15,7 @@
 		2255344822D6DB9900A73CCF /* window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2255344422D6DB9900A73CCF /* window.cpp */; };
 		2255344C22D6DDC500A73CCF /* stb_image_wrap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2255344B22D6DDC500A73CCF /* stb_image_wrap.cpp */; };
 		22A7764D22D70B2500828762 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A7764B22D70B2500828762 /* camera.cpp */; };
+		22DBE26122D7D999006C760E /* mouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22DBE25F22D7D999006C760E /* mouse.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -54,6 +55,8 @@
 		2255344E22D6F71500A73CCF /* point_data.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = point_data.h; sourceTree = "<group>"; };
 		22A7764B22D70B2500828762 /* camera.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = camera.cpp; sourceTree = "<group>"; };
 		22A7764C22D70B2500828762 /* camera.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = camera.hpp; sourceTree = "<group>"; };
+		22DBE25F22D7D999006C760E /* mouse.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = mouse.cpp; sourceTree = "<group>"; };
+		22DBE26022D7D999006C760E /* mouse.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = mouse.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				2205192522C5E862000A44D3 /* main.cpp */,
+				22DBE25E22D7D984006C760E /* Mouse */,
 				2255344E22D6F71500A73CCF /* point_data.h */,
 				2205193F22C5F579000A44D3 /* Shader.h */,
 				22A7764A22D70B1200828762 /* Camera */,
@@ -136,6 +140,15 @@
 				22A7764C22D70B2500828762 /* camera.hpp */,
 			);
 			path = Camera;
+			sourceTree = "<group>";
+		};
+		22DBE25E22D7D984006C760E /* Mouse */ = {
+			isa = PBXGroup;
+			children = (
+				22DBE25F22D7D999006C760E /* mouse.cpp */,
+				22DBE26022D7D999006C760E /* mouse.hpp */,
+			);
+			path = Mouse;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,6 +212,7 @@
 				2255344C22D6DDC500A73CCF /* stb_image_wrap.cpp in Sources */,
 				2255344822D6DB9900A73CCF /* window.cpp in Sources */,
 				2205192622C5E862000A44D3 /* main.cpp in Sources */,
+				22DBE26122D7D999006C760E /* mouse.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

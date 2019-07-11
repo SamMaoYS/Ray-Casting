@@ -1,8 +1,15 @@
 #include "point_data.h"
+#include "Camera/camera.hpp"
+#include "Mouse/mouse.hpp"
 
 using namespace std;
 
-glm::vec3 MoveCamera(GLFWwindow *window, GLfloat deltaTime, glm::vec3 camPos, glm::vec3 camFront, glm::vec3 camUp);
+void KeyPressCallBack(GLFWwindow *window, GLfloat deltaTime);
+void MouseCallBack(GLFWwindow *window);
+void ScrollCallBack(GLFWwindow *window, double xOffset, double yOffset);
+
+Camera camera;
+Mouse mouse;
 
 int main( )
 {
@@ -17,6 +24,9 @@ int main( )
     
     // Define the viewport dimensions
     W.DefineViewPort();
+    
+    glfwSetScrollCallback(W.window, ScrollCallBack);
+    glfwSetInputMode(W.window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     
     // Build and compile shader program
     Shader core_shader( "resources/shaders/core.vs", "resources/shaders/core.frag" );
@@ -37,17 +47,6 @@ int main( )
     core_shader.setInt("texture1", 0);
     core_shader.setInt("texture2", 1);
     
-    // since we don't change projection
-    // move out of the while
-    glm::mat4 projection = glm::mat4(1.0f);
-    projection = glm::perspective(glm::radians(45.0f), (GLfloat)W.Width / (GLfloat)W.Height, 0.1f, 100.0f);
-    core_shader.setMat4("projection", projection);
-    
-    // set up camera axis
-    glm::vec3 cam_pos = glm::vec3(0.0f, 0.0f, 3.0f);
-    glm::vec3 cam_front = glm::vec3(0.0f, 0.0f, -1.0f);
-    glm::vec3 cam_up = glm::vec3(0.0f, 1.0f, 0.0f);
-    
     // init timing
     GLfloat deltaTime = 0.0f;
     GLfloat lastFrame = 0.0f;
@@ -60,7 +59,8 @@ int main( )
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
         
-        cam_pos = MoveCamera(W.window, deltaTime, cam_pos, cam_front, cam_up);
+        KeyPressCallBack(W.window, deltaTime);
+        MouseCallBack(W.window);
         
         // Render
         // Clear the colorbuffer
@@ -73,9 +73,12 @@ int main( )
         
         core_shader.Use( );
         
+        glm::mat4 projection = glm::mat4(1.0f);
+        projection = glm::perspective(camera.GetCameraZoom(), (GLfloat)W.Width / (GLfloat)W.Height, 0.1f, 100.0f);
+        core_shader.setMat4("projection", projection);
+        
         // rotate camera according to Y axis
-        glm::mat4 view = glm::mat4(1.0f);
-        view  = glm::lookAt(cam_pos, cam_front + cam_pos, cam_up);
+        glm::mat4 view = camera.GetCameraLookAt();
         core_shader.setMat4("view", view);
         
         // Draw the triangle
@@ -106,20 +109,43 @@ int main( )
     return EXIT_SUCCESS;
 }
 
-glm::vec3 MoveCamera(GLFWwindow *window, GLfloat deltaTime, glm::vec3 camPos, glm::vec3 camFront, glm::vec3 camUp) {
-    GLfloat camSpeed = 2.5f * deltaTime;
-    if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
-        camPos += camSpeed * camFront;
+void KeyPressCallBack(GLFWwindow *window, GLfloat deltaTime) {
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+        camera.MoveCamera(FORWARD, deltaTime);
     }
-    if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
-        camPos -= glm::normalize(glm::cross(camFront, camUp)) * camSpeed;
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+        camera.MoveCamera(BACKWARD, deltaTime);
     }
-    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
-        camPos -= camSpeed * camFront;
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+        camera.MoveCamera(LEFT, deltaTime);
     }
-    if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
-        camPos += glm::normalize(glm::cross(camFront, camUp)) * camSpeed;
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+        camera.MoveCamera(RIGHT, deltaTime);
     }
     
-    return camPos;
+    //reset camera
+    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
+        camera = Camera();
+    }
+}
+
+void MouseCallBack(GLFWwindow *window) {
+    glfwGetCursorPos(window, &mouse.xPos, &mouse.yPos);
+    
+    if (mouse.firstMouse) {
+        mouse.lastX = mouse.xPos;
+        mouse.lastY = mouse.yPos;
+        mouse.firstMouse = false;
+    }
+    
+    GLfloat xOffset = mouse.xPos - mouse.lastX;
+    GLfloat yOffset = mouse.yPos - mouse.lastY;
+    
+    mouse.lastX = mouse.xPos;
+    mouse.lastY = mouse.yPos;
+    
+    camera.RotateCamera(xOffset, yOffset);
+}
+void ScrollCallBack(GLFWwindow *window, double xOffset, double yOffset) {
+    camera.ZoomCamera(yOffset);
 }

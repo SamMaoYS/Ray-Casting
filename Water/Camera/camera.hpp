@@ -23,8 +23,8 @@ enum MoveDirection {
 };
 
 // Default camera values
-const GLfloat YAW         = -90.0f;
 const GLfloat PITCH       =  0.0f;
+const GLfloat YAW         = -90.0f;
 const GLfloat SPEED       =  2.5f;
 const GLfloat SENSITIVITY =  0.1f;
 const GLfloat ZOOM        =  45.0f;
@@ -33,7 +33,7 @@ const glm::vec3 CAMFRONT  =  glm::vec3(0.0f, 0.0f, -1.0f);
 class Camera {
 public:
     Camera();
-    Camera(glm::vec3 pos, glm::vec3 up, GLfloat yaw, GLfloat pitch);
+    Camera(glm::vec3 pos, glm::vec3 up, GLfloat pitch, GLfloat yaw);
     // TO DO: delete camera
     ~Camera() {}
     
@@ -68,8 +68,8 @@ private:
     glm::vec3 camRight;
     glm::vec3 worldUp;
     // Euler Angles
-    GLfloat camYaw;
     GLfloat camPitch;
+    GLfloat camYaw;
     // Move options
     GLfloat moveSpeed;
     GLfloat mouseSensitivity;

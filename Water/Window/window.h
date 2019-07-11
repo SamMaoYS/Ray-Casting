@@ -52,6 +52,8 @@ public:
     void BindTexture(GLuint texture, int index);
     void DeleteBuffers();
     
+    //static void GLFWFrameBufferSizeFunc(GLFWwindow *window, int width, int height);
+    
 private:
     int screenWidth;
     int screenHeight;
