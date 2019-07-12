@@ -48,15 +48,29 @@ int Window:: InitializeGLEW() {
     return EXIT_SUCCESS;
 }
 
-void Window:: SetUpBuffers(vector<GLfloat> vertices) {
+void Window:: SetUpBuffers(GLuint *VAO, GLuint *VBO) {
+    glGenVertexArrays( 1, VAO );
+    glBindVertexArray( *VAO );
+    glBindBuffer(GL_ARRAY_BUFFER, *VBO);
+    
+    for (int i=0; i < this->attriNum; i++) {
+        glVertexAttribPointer(i, this->attriSize[i], GL_FLOAT, GL_FALSE, this->attriSetSize * sizeof(GLfloat), (GLvoid*)(this->attriOffset[i] * sizeof(GLfloat)));
+        glEnableVertexAttribArray(i);
+    }
+    
+    // Unbind VAO
+    glBindVertexArray( 0 );
+}
+
+void Window:: SetUpBuffers(vector<GLfloat> vertices, GLuint *VAO, GLuint *VBO) {
     GLfloat ver[vertices.size()];
     memcpy(ver, &vertices[0], sizeof(GLfloat)*vertices.size());
     
-    glGenVertexArrays( 1, &this->VAO );
-    glBindVertexArray( this->VAO );
+    glGenVertexArrays( 1, VAO );
+    glBindVertexArray( *VAO );
     
-    glGenBuffers( 1, &this->VBO );
-    glBindBuffer( GL_ARRAY_BUFFER, this->VBO );
+    glGenBuffers( 1, VBO );
+    glBindBuffer( GL_ARRAY_BUFFER, *VBO );
     glBufferData( GL_ARRAY_BUFFER, sizeof(ver), ver, GL_STATIC_DRAW );
     
     for (int i=0; i<this->attriNum; i++) {
@@ -68,21 +82,21 @@ void Window:: SetUpBuffers(vector<GLfloat> vertices) {
     glBindVertexArray( 0 );
 }
 
-void Window:: SetUpBuffers(vector<GLfloat> vertices, vector<GLuint> indices) {
+void Window:: SetUpBuffers(vector<GLfloat> vertices, vector<GLuint> indices, GLuint *VAO, GLuint *VBO, GLuint *EBO) {
     GLfloat ver[vertices.size()];
     memcpy(ver, &vertices[0], sizeof(GLfloat)*vertices.size());
     GLuint ind[indices.size()];
     memcpy(ind, &indices[0], sizeof(GLuint)*indices.size());
     
-    glGenVertexArrays( 1, &this->VAO );
-    glBindVertexArray( this->VAO );
+    glGenVertexArrays( 1, VAO );
+    glBindVertexArray( *VAO );
     
-    glGenBuffers( 1, &this->VBO );
-    glBindBuffer( GL_ARRAY_BUFFER, this->VBO );
+    glGenBuffers( 1, VBO );
+    glBindBuffer( GL_ARRAY_BUFFER, *VBO );
     glBufferData( GL_ARRAY_BUFFER, sizeof(ver), ver, GL_STATIC_DRAW );
     
-    glGenBuffers( 1, &this->EBO );
-    glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, this->EBO );
+    glGenBuffers( 1, EBO );
+    glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, *EBO );
     glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof(ind), ind, GL_STATIC_DRAW );
     
     for (int i=0; i<this->attriNum; i++) {
@@ -146,11 +160,23 @@ void Window:: BindTexture(GLuint texture, int index) {
     glBindTexture(GL_TEXTURE_2D, texture);
 }
 
-void Window:: DeleteBuffers() {
+void Window:: DeleteBuffers(GLuint* VAO) {
     // Properly de-allocate all resources
-    glDeleteVertexArrays( 1, &this->VAO );
-    glDeleteBuffers( 1, &this->VBO );
-    glDeleteBuffers( 1, &this->EBO );
+    glDeleteVertexArrays( 1, VAO );
+}
+
+void Window:: DeleteBuffers(GLuint* VAO, GLuint* VBO) {
+    // Properly de-allocate all resources
+    glDeleteVertexArrays( 1, VAO );
+    glDeleteBuffers( 1, VBO );
+}
+
+
+void Window:: DeleteBuffers(GLuint* VAO, GLuint* VBO, GLuint* EBO) {
+    // Properly de-allocate all resources
+    glDeleteVertexArrays( 1, VAO );
+    glDeleteBuffers( 1, VBO );
+    glDeleteBuffers( 1, EBO );
 }
 
 //void Window:: GLFWFrameBufferSizeFunc(GLFWwindow *window, int width, int height) {

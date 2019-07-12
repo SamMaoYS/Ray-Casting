@@ -35,9 +35,6 @@ public:
     GLFWwindow* window;
     GLuint Width;
     GLuint Height;
-    GLuint VAO;
-    GLuint VBO;
-    GLuint EBO;
     
     Window () {}
     Window (string name, GLuint width, GLuint height);
@@ -45,12 +42,15 @@ public:
     
     int DefineViewPort();
     int InitializeGLEW();
-    void SetUpBuffers(vector<GLfloat> vertices);
-    void SetUpBuffers(vector<GLfloat> vertices, vector<GLuint> indices);
+    void SetUpBuffers(GLuint *VAO, GLuint *VBO);
+    void SetUpBuffers(vector<GLfloat> vertices, GLuint *VAO, GLuint *VBO);
+    void SetUpBuffers(vector<GLfloat> vertices, vector<GLuint> indices, GLuint *VAO, GLuint *VBO, GLuint *EBO);
     void GetAttributeInfo(vector<int> asize);
     void LoadTexture(GLuint *texture, string path, int alpha);
     void BindTexture(GLuint texture, int index);
-    void DeleteBuffers();
+    void DeleteBuffers(GLuint *VAO);
+    void DeleteBuffers(GLuint *VAO, GLuint *VBO);
+    void DeleteBuffers(GLuint *VAO, GLuint *VBO, GLuint *EBO);
     
     //static void GLFWFrameBufferSizeFunc(GLFWwindow *window, int width, int height);
     
