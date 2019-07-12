@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2203EBF822D8313F0008855E /* build_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2203EBF622D8313F0008855E /* build_scene.cpp */; };
 		2205192622C5E862000A44D3 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2205192522C5E862000A44D3 /* main.cpp */; };
 		2205192E22C5E915000A44D3 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2205192D22C5E915000A44D3 /* OpenGL.framework */; };
 		2205194822C5FBFA000A44D3 /* libglfw.3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2205194622C5FBFA000A44D3 /* libglfw.3.3.dylib */; };
@@ -41,6 +42,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2203EBF622D8313F0008855E /* build_scene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = build_scene.cpp; sourceTree = "<group>"; };
+		2203EBF722D8313F0008855E /* build_scene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = build_scene.hpp; sourceTree = "<group>"; };
 		2205192222C5E862000A44D3 /* Water */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Water; sourceTree = BUILT_PRODUCTS_DIR; };
 		2205192522C5E862000A44D3 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		2205192D22C5E915000A44D3 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -73,6 +76,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2203EBF522D831140008855E /* Build */ = {
+			isa = PBXGroup;
+			children = (
+				2203EBF622D8313F0008855E /* build_scene.cpp */,
+				2203EBF722D8313F0008855E /* build_scene.hpp */,
+			);
+			path = Build;
+			sourceTree = "<group>";
+		};
 		2205191922C5E862000A44D3 = {
 			isa = PBXGroup;
 			children = (
@@ -94,9 +106,10 @@
 			isa = PBXGroup;
 			children = (
 				2205192522C5E862000A44D3 /* main.cpp */,
-				22DBE25E22D7D984006C760E /* Mouse */,
-				2255344E22D6F71500A73CCF /* point_data.h */,
 				2205193F22C5F579000A44D3 /* Shader.h */,
+				2255344E22D6F71500A73CCF /* point_data.h */,
+				2203EBF522D831140008855E /* Build */,
+				22DBE25E22D7D984006C760E /* Mouse */,
 				22A7764A22D70B1200828762 /* Camera */,
 				2255344D22D6E0BC00A73CCF /* Window */,
 				2255344922D6DD5E00A73CCF /* StbImage */,
@@ -209,6 +222,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22A7764D22D70B2500828762 /* camera.cpp in Sources */,
+				2203EBF822D8313F0008855E /* build_scene.cpp in Sources */,
 				2255344C22D6DDC500A73CCF /* stb_image_wrap.cpp in Sources */,
 				2255344822D6DB9900A73CCF /* window.cpp in Sources */,
 				2205192622C5E862000A44D3 /* main.cpp in Sources */,

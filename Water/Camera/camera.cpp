@@ -27,10 +27,10 @@ Camera:: Camera(glm::vec3 pos, glm::vec3 up, GLfloat pitch, GLfloat yaw) {
     this->moveSpeed = SPEED;
     this->mouseSensitivity = SENSITIVITY;
     this->camZoom = ZOOM;
-    this->worldUp = this->camUp;
-    
+
     this->camPos = pos;
     this->camUp= up;
+    this->worldUp = this->camUp;
     this->camPitch = pitch;
     this->camYaw = yaw;
     this->UpdateCameraVectors();
