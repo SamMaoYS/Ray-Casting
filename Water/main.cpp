@@ -39,7 +39,7 @@ int main( )
     
 
     GLuint texture1, texture2;
-//    // value 1 indicates GL_RGB, value 0 indicates GL_RGBA
+    // value 1 indicates GL_RGB, value 0 indicates GL_RGBA
     W.LoadTexture(&texture1, "resources/images/container.jpg", 1);
     W.LoadTexture(&texture2, "resources/images/awesomeface.png", 0);
 
@@ -90,23 +90,16 @@ int main( )
         glm::mat4 view = build.cameraList[build.camNum]->GetCameraLookAt();
         boxShader.setMat4("view", view);
 
-        // Draw the triangle
-//        glBindVertexArray(cubeVAO);
-//        for (unsigned int i=0; i<10; i++) {
-//            glm::mat4 model = glm::mat4(1.0f);
-//            model = glm::translate(model, cubePositions[i]);
-//            float angle = 20.0f * i;
-//            model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-//            core_shader.setMat4("model", model);
-//
-//            glDrawArrays(GL_TRIANGLES, 0, 36);
-//        }
-//        glBindVertexArray(0);
-        glm::mat4 model = glm::mat4(1.0f);
-        boxShader.setMat4("model", model);
-        
         glBindVertexArray(cubeVAO);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+        for (unsigned int i=0; i<10; i++) {
+            glm::mat4 model = glm::mat4(1.0f);
+            model = glm::translate(model, cubePositions[i]);
+            float angle = 20.0f * i;
+            model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+            boxShader.setMat4("model", model);
+            
+            glDrawArrays(GL_TRIANGLES, 0, 36);
+        }
         glBindVertexArray(0);
         
         lightShader.Use();
@@ -114,7 +107,7 @@ int main( )
         
         lightShader.setMat4("projection", projection);
         lightShader.setMat4("view", view);
-        model = glm::mat4(1.0f);
+        glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, lightPos);
         model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
         lightShader.setMat4("model", model);

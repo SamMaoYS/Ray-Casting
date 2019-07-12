@@ -178,7 +178,3 @@ void Window:: DeleteBuffers(GLuint* VAO, GLuint* VBO, GLuint* EBO) {
     glDeleteBuffers( 1, VBO );
     glDeleteBuffers( 1, EBO );
 }
-
-//void Window:: GLFWFrameBufferSizeFunc(GLFWwindow *window, int width, int height) {
-//    glViewport( 0, 0, width, height);
-//}
