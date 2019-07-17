@@ -25,12 +25,12 @@ int main( )
     Shader boxShader( "resources/shaders/core.vs", "resources/shaders/core.frag" );
     Shader lightShader( "resources/shaders/light.vs", "resources/shaders/light.frag" );
 
-    vector<int> attributeSize = {3, 2};
+    vector<int> attributeSize = {3, 3, 2};
     W.GetAttributeInfo(attributeSize);
 
     // Setup VAO, VBO, EBO
-    GLuint cubeVAO, cubeVBO;
-    W.SetUpBuffers(vertices, &cubeVAO, &cubeVBO);
+    GLuint boxVAO, boxVBO;
+    W.SetUpBuffers(box_norm_texture, &boxVAO, &boxVBO);
     
     vector<int> attributeSize2 = {3};
     W.GetAttributeInfo(attributeSize2);
@@ -38,21 +38,21 @@ int main( )
     W.SetUpBuffers(box, &lightVAO, &lightVBO);
     
 
-    GLuint texture1, texture2;
+	GLuint diffuseMap, specularMap;
     // value 1 indicates GL_RGB, value 0 indicates GL_RGBA
-    W.LoadTexture(&texture1, "resources/images/container.jpg", 1);
-    W.LoadTexture(&texture2, "resources/images/awesomeface.png", 0);
+    W.LoadTexture(&diffuseMap, "resources/images/container2.png", 0);
+    W.LoadTexture(&specularMap, "resources/images/container2_specular.png", 0);
 
     // Bind uniform texture value
     boxShader.Use();
-    boxShader.setInt("texture1", 0);
-    boxShader.setInt("texture2", 1);
+    boxShader.setInt("diffuseMap", 0);
+    boxShader.setInt("specularMap", 1);
 
     // init timing
     GLfloat deltaTime = 0.0f;
     GLfloat lastFrame = 0.0f;
     
-    glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+    glm::vec3 lightPos(0.0f, 1.0f, 5.0f);
     // Game loop
     while ( !glfwWindowShouldClose( W.window ) )
     {
@@ -73,14 +73,21 @@ int main( )
         glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // Bind textures
-        W.BindTexture(texture1, 0);
-        W.BindTexture(texture2, 1);
+        W.BindTexture(diffuseMap, 0);
+        W.BindTexture(specularMap, 1);
         
-        glm::vec4 lightColor = glm::vec4(cos(glfwGetTime()), sin(glfwGetTime()), 1.0f, 1.0f);
-
         boxShader.Use( );
-//        boxShader.setVec3("objectColor", glm::vec3(1.0f, sin(glfwGetTime()), 0.31f));
-        boxShader.setVec4("lightColor", lightColor);
+        boxShader.setVec3("light.position", lightPos);
+        boxShader.setVec3("viewPos", build.cameraList[build.camNum]->GetCameraPos());
+        
+        boxShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
+        boxShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
+        boxShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+        
+        boxShader.setVec3("material.ambient", 1.0f, 0.5f, 0.31f);
+        boxShader.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
+        boxShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f); // specular lighting doesn't have full effect on this object's material
+        boxShader.setFloat("material.shininess", 64.0f);
 
         glm::mat4 projection = glm::mat4(1.0f);
         projection = glm::perspective(build.cameraList[build.camNum]->GetCameraZoom(), (GLfloat)W.Width / (GLfloat)W.Height, 0.1f, 100.0f);
@@ -90,7 +97,7 @@ int main( )
         glm::mat4 view = build.cameraList[build.camNum]->GetCameraLookAt();
         boxShader.setMat4("view", view);
 
-        glBindVertexArray(cubeVAO);
+        glBindVertexArray(boxVAO);
         for (unsigned int i=0; i<10; i++) {
             glm::mat4 model = glm::mat4(1.0f);
             model = glm::translate(model, cubePositions[i]);
@@ -103,7 +110,7 @@ int main( )
         glBindVertexArray(0);
         
         lightShader.Use();
-        lightShader.setVec4("lightColor", lightColor);
+        lightShader.setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
         
         lightShader.setMat4("projection", projection);
         lightShader.setMat4("view", view);
@@ -121,7 +128,7 @@ int main( )
     }
 
     // De-allocate VAO, VBO, EBO
-    W.DeleteBuffers(&cubeVAO, &cubeVBO);
+    W.DeleteBuffers(&boxVAO, &boxVBO);
     W.DeleteBuffers(&lightVAO, &lightVBO);
 
     // Terminate GLFW
