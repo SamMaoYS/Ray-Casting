@@ -45,8 +45,8 @@ int main( )
 
     // Bind uniform texture value
     boxShader.Use();
-    boxShader.setInt("diffuseMap", 0);
-    boxShader.setInt("specularMap", 1);
+    boxShader.setInt("material.diffuse", 0);
+    boxShader.setInt("material.specular", 1);
 
     // init timing
     GLfloat deltaTime = 0.0f;
@@ -77,17 +77,19 @@ int main( )
         W.BindTexture(specularMap, 1);
         
         boxShader.Use( );
-        boxShader.setVec3("light.position", lightPos);
+        boxShader.setVec3("light.position", build.cameraList[build.camNum]->GetCameraPos());
+        boxShader.setVec3("light.direction", build.cameraList[build.camNum]->GetCameraFront());
+        boxShader.setFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
+        boxShader.setFloat("light.outerCutOff", glm::cos(glm::radians(17.5f)));
         boxShader.setVec3("viewPos", build.cameraList[build.camNum]->GetCameraPos());
         
         boxShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
-        boxShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
+        boxShader.setVec3("light.diffuse", 0.8f, 0.8f, 0.8f);
         boxShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
-        
-        boxShader.setVec3("material.ambient", 1.0f, 0.5f, 0.31f);
-        boxShader.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
-        boxShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f); // specular lighting doesn't have full effect on this object's material
-        boxShader.setFloat("material.shininess", 64.0f);
+        boxShader.setFloat("light.constant", 1.0f);
+        boxShader.setFloat("light.linear", 0.045f);
+        boxShader.setFloat("light.quadratic", 0.0075f);
+        boxShader.setFloat("material.shininess", 32.0f);
 
         glm::mat4 projection = glm::mat4(1.0f);
         projection = glm::perspective(build.cameraList[build.camNum]->GetCameraZoom(), (GLfloat)W.Width / (GLfloat)W.Height, 0.1f, 100.0f);
@@ -109,19 +111,19 @@ int main( )
         }
         glBindVertexArray(0);
         
-        lightShader.Use();
-        lightShader.setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
-        
-        lightShader.setMat4("projection", projection);
-        lightShader.setMat4("view", view);
-        glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, lightPos);
-        model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
-        lightShader.setMat4("model", model);
-        
-        glBindVertexArray(lightVAO);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-        glBindVertexArray(0);
+//        lightShader.Use();
+//        lightShader.setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
+//
+//        lightShader.setMat4("projection", projection);
+//        lightShader.setMat4("view", view);
+//        glm::mat4 model = glm::mat4(1.0f);
+//        model = glm::translate(model, lightPos);
+//        model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
+//        lightShader.setMat4("model", model);
+//        
+//        glBindVertexArray(lightVAO);
+//        glDrawArrays(GL_TRIANGLES, 0, 36);
+//        glBindVertexArray(0);
         
         // Swap the screen buffers
         glfwSwapBuffers( W.window );
