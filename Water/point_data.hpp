@@ -6,9 +6,9 @@
 //  Copyright © 2019 sam. All rights reserved.
 //
 
-#ifndef point_data_h
-#define point_data_h
-#include "Window/window.h"
+#ifndef point_data_hpp
+#define point_data_hpp
+#include "Window/window.hpp"
 
 // Set up vertex data
 vector<GLfloat> box_norm_texture = {
@@ -201,4 +201,4 @@ glm::vec3 cubePositions[] = {
     glm::vec3(-1.3f,  1.0f, -1.5f)
 };
 
-#endif /* point_data_h */
+#endif /* point_data_hpp */

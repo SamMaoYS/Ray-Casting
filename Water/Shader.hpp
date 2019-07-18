@@ -1,5 +1,5 @@
-#ifndef SHADER_H
-#define SHADER_H
+#ifndef Shader_hpp
+#define Shader_hpp
 
 #include <string>
 #include <fstream>

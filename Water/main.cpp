@@ -1,4 +1,4 @@
-#include "point_data.h"
+#include "point_data.hpp"
 #include "Build/build_scene.hpp"
 
 int main( )

@@ -6,7 +6,7 @@
 //  Copyright © 2019 sam. All rights reserved.
 //
 
-#include "window.h"
+#include "window.hpp"
 
 Window:: Window(string name, GLuint width, GLuint height) {
     // Init GLFW

@@ -6,8 +6,8 @@
 //  Copyright © 2019 sam. All rights reserved.
 //
 
-#ifndef window_h
-#define window_h
+#ifndef window_hpp
+#define window_hpp
 
 #include <iostream>
 #include <math.h>
@@ -25,7 +25,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 // Other includes
-#include "Shader.h"
+#include "Shader.hpp"
 #include "../StbImage/stb_image.h"
 
 using namespace std;
@@ -64,4 +64,4 @@ private:
 };
 
 
-#endif /* window_h */
+#endif /* window_hpp */
