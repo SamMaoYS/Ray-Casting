@@ -15,6 +15,8 @@
 		2205195222C6029F000A44D3 /* resources in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2205195022C6027D000A44D3 /* resources */; };
 		2255344822D6DB9900A73CCF /* window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2255344422D6DB9900A73CCF /* window.cpp */; };
 		2255344C22D6DDC500A73CCF /* stb_image_wrap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2255344B22D6DDC500A73CCF /* stb_image_wrap.cpp */; };
+		2286952E22E19B1F00882BC8 /* model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2286952C22E19B1F00882BC8 /* model.cpp */; };
+		2286953022E19F0C00882BC8 /* libassimp.4.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2286952F22E19F0C00882BC8 /* libassimp.4.1.0.dylib */; };
 		22A7764D22D70B2500828762 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A7764B22D70B2500828762 /* camera.cpp */; };
 		22DBE26122D7D999006C760E /* mouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22DBE25F22D7D999006C760E /* mouse.cpp */; };
 /* End PBXBuildFile section */
@@ -56,8 +58,13 @@
 		2255344A22D6DDBD00A73CCF /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
 		2255344B22D6DDC500A73CCF /* stb_image_wrap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stb_image_wrap.cpp; sourceTree = "<group>"; };
 		2255344E22D6F71500A73CCF /* point_data.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = point_data.hpp; sourceTree = "<group>"; };
+		2286952C22E19B1F00882BC8 /* model.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = model.cpp; sourceTree = "<group>"; };
+		2286952D22E19B1F00882BC8 /* model.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = model.hpp; sourceTree = "<group>"; };
+		2286952F22E19F0C00882BC8 /* libassimp.4.1.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libassimp.4.1.0.dylib; path = ../../../../usr/local/Cellar/assimp/4.1.0/lib/libassimp.4.1.0.dylib; sourceTree = "<group>"; };
+		2286953322E19FCC00882BC8 /* light.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = light.hpp; sourceTree = "<group>"; };
 		22A7764B22D70B2500828762 /* camera.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = camera.cpp; sourceTree = "<group>"; };
 		22A7764C22D70B2500828762 /* camera.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = camera.hpp; sourceTree = "<group>"; };
+		22AC40ED22E1597D00FE961B /* mesh.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = mesh.hpp; sourceTree = "<group>"; };
 		22DBE25F22D7D999006C760E /* mouse.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = mouse.cpp; sourceTree = "<group>"; };
 		22DBE26022D7D999006C760E /* mouse.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = mouse.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -67,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2286953022E19F0C00882BC8 /* libassimp.4.1.0.dylib in Frameworks */,
 				2205194822C5FBFA000A44D3 /* libglfw.3.3.dylib in Frameworks */,
 				2205194922C5FBFA000A44D3 /* libGLEW.2.1.0.dylib in Frameworks */,
 				2205192E22C5E915000A44D3 /* OpenGL.framework in Frameworks */,
@@ -108,6 +116,9 @@
 				2205192522C5E862000A44D3 /* main.cpp */,
 				2205193F22C5F579000A44D3 /* Shader.hpp */,
 				2255344E22D6F71500A73CCF /* point_data.hpp */,
+				2286952B22E19B0400882BC8 /* Model */,
+				22AC40EC22E1596500FE961B /* Mesh */,
+				2286953122E19FB700882BC8 /* Light */,
 				2203EBF522D831140008855E /* Build */,
 				22DBE25E22D7D984006C760E /* Mouse */,
 				22A7764A22D70B1200828762 /* Camera */,
@@ -121,6 +132,7 @@
 		2205192C22C5E915000A44D3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2286952F22E19F0C00882BC8 /* libassimp.4.1.0.dylib */,
 				2205194722C5FBFA000A44D3 /* libGLEW.2.1.0.dylib */,
 				2205194622C5FBFA000A44D3 /* libglfw.3.3.dylib */,
 				2205192D22C5E915000A44D3 /* OpenGL.framework */,
@@ -146,6 +158,23 @@
 			path = Window;
 			sourceTree = "<group>";
 		};
+		2286952B22E19B0400882BC8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2286952C22E19B1F00882BC8 /* model.cpp */,
+				2286952D22E19B1F00882BC8 /* model.hpp */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2286953122E19FB700882BC8 /* Light */ = {
+			isa = PBXGroup;
+			children = (
+				2286953322E19FCC00882BC8 /* light.hpp */,
+			);
+			path = Light;
+			sourceTree = "<group>";
+		};
 		22A7764A22D70B1200828762 /* Camera */ = {
 			isa = PBXGroup;
 			children = (
@@ -153,6 +182,14 @@
 				22A7764C22D70B2500828762 /* camera.hpp */,
 			);
 			path = Camera;
+			sourceTree = "<group>";
+		};
+		22AC40EC22E1596500FE961B /* Mesh */ = {
+			isa = PBXGroup;
+			children = (
+				22AC40ED22E1597D00FE961B /* mesh.hpp */,
+			);
+			path = Mesh;
 			sourceTree = "<group>";
 		};
 		22DBE25E22D7D984006C760E /* Mouse */ = {
@@ -222,6 +259,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22A7764D22D70B2500828762 /* camera.cpp in Sources */,
+				2286952E22E19B1F00882BC8 /* model.cpp in Sources */,
 				2203EBF822D8313F0008855E /* build_scene.cpp in Sources */,
 				2255344C22D6DDC500A73CCF /* stb_image_wrap.cpp in Sources */,
 				2255344822D6DB9900A73CCF /* window.cpp in Sources */,
@@ -370,6 +408,7 @@
 					/usr/local/Cellar/glew/2.1.0/lib,
 					/usr/local/Cellar/glfw/3.3/lib,
 					/usr/local/lib,
+					/usr/local/Cellar/assimp/4.1.0/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -386,6 +425,7 @@
 					/usr/local/Cellar/glew/2.1.0/lib,
 					/usr/local/Cellar/glfw/3.3/lib,
 					/usr/local/lib,
+					/usr/local/Cellar/assimp/4.1.0/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "";

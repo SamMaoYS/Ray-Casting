@@ -1,5 +1,5 @@
-#include "point_data.hpp"
-#include "Build/build_scene.hpp"
+#include "Model/model.hpp"
+#include "Light/light.hpp"
 
 int main( )
 {
@@ -22,9 +22,9 @@ int main( )
     
 
     // Build and compile shader program
-    Shader boxShader( "resources/shaders/core.vs", "resources/shaders/core.frag" );
+    Shader modelShader( "resources/shaders/model.vs", "resources/shaders/model.frag" );
     Shader lightShader( "resources/shaders/light.vs", "resources/shaders/light.frag" );
-
+    Model nanosuitModel("resources/model/nanosuit/nanosuit.obj");
     vector<int> attributeSize = {3, 3, 2};
     W.GetAttributeInfo(attributeSize);
 
@@ -44,9 +44,9 @@ int main( )
     W.LoadTexture(&specularMap, "resources/images/container2_specular.png", 0);
 
     // Bind uniform texture value
-    boxShader.Use();
-    boxShader.setInt("material.diffuse", 0);
-    boxShader.setInt("material.specular", 1);
+    modelShader.Use();
+    modelShader.setInt("material.texture_diffuse1", 0);
+    modelShader.setInt("material.texture_specular1", 1);
 
     // init timing
     GLfloat deltaTime = 0.0f;
@@ -69,35 +69,23 @@ int main( )
 
         // Render
         // Clear the colorbuffer
-        glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );
+        glClearColor( 0.1f, 0.1f, 0.1f, 1.0f );
         glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // Bind textures
         W.BindTexture(diffuseMap, 0);
         W.BindTexture(specularMap, 1);
         
-        boxShader.Use( );
-        boxShader.setVec3("light.position", build.cameraList[build.camNum]->GetCameraPos());
-        boxShader.setVec3("light.direction", build.cameraList[build.camNum]->GetCameraFront());
-        boxShader.setFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
-        boxShader.setFloat("light.outerCutOff", glm::cos(glm::radians(17.5f)));
-        boxShader.setVec3("viewPos", build.cameraList[build.camNum]->GetCameraPos());
-        
-        boxShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
-        boxShader.setVec3("light.diffuse", 0.8f, 0.8f, 0.8f);
-        boxShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
-        boxShader.setFloat("light.constant", 1.0f);
-        boxShader.setFloat("light.linear", 0.045f);
-        boxShader.setFloat("light.quadratic", 0.0075f);
-        boxShader.setFloat("material.shininess", 32.0f);
+        Light light;
+        light.boxLight(modelShader, build);
 
         glm::mat4 projection = glm::mat4(1.0f);
         projection = glm::perspective(build.cameraList[build.camNum]->GetCameraZoom(), (GLfloat)W.Width / (GLfloat)W.Height, 0.1f, 100.0f);
-        boxShader.setMat4("projection", projection);
+        modelShader.setMat4("projection", projection);
 
         // rotate camera according to Y axis
         glm::mat4 view = build.cameraList[build.camNum]->GetCameraLookAt();
-        boxShader.setMat4("view", view);
+        modelShader.setMat4("view", view);
 
         glBindVertexArray(boxVAO);
         for (unsigned int i=0; i<10; i++) {
@@ -105,25 +93,35 @@ int main( )
             model = glm::translate(model, cubePositions[i]);
             float angle = 20.0f * i;
             model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-            boxShader.setMat4("model", model);
+            modelShader.setMat4("model", model);
             
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
         glBindVertexArray(0);
         
-//        lightShader.Use();
-//        lightShader.setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
-//
-//        lightShader.setMat4("projection", projection);
-//        lightShader.setMat4("view", view);
-//        glm::mat4 model = glm::mat4(1.0f);
-//        model = glm::translate(model, lightPos);
-//        model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
-//        lightShader.setMat4("model", model);
-//        
-//        glBindVertexArray(lightVAO);
-//        glDrawArrays(GL_TRIANGLES, 0, 36);
-//        glBindVertexArray(0);
+        glm::mat4 model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-2.0f, -1.75f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
+        modelShader.setMat4("model", model);
+        nanosuitModel.Draw(modelShader);
+        
+        lightShader.Use();
+        lightShader.setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
+
+        lightShader.setMat4("projection", projection);
+        lightShader.setMat4("view", view);
+        model = glm::mat4(1.0f);
+        
+        glBindVertexArray(lightVAO);
+        for (unsigned int i = 0; i < 4; i++)
+        {
+            model = glm::mat4(1.0f);
+            model = glm::translate(model, pointLightPositions[i]);
+            model = glm::scale(model, glm::vec3(0.2f)); // Make it a smaller cube
+            lightShader.setMat4("model", model);
+            glDrawArrays(GL_TRIANGLES, 0, 36);
+        }
+        glBindVertexArray(0);
         
         // Swap the screen buffers
         glfwSwapBuffers( W.window );
