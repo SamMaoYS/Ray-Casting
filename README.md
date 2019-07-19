@@ -1,7 +1,7 @@
 ## WaterRendering
 **GoalL**
 
-Try to achieve fluid simulation using OpenGL with GLFW and GLEW
+Try to achieve fluid simulation using OpenGL with GLFW and GLEW on Mac using Xcode
 
 **Learnig path**
 1. load .obj with specular effect
