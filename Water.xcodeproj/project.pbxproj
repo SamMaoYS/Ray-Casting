@@ -16,9 +16,9 @@
 		2255344822D6DB9900A73CCF /* window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2255344422D6DB9900A73CCF /* window.cpp */; };
 		2255344C22D6DDC500A73CCF /* stb_image_wrap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2255344B22D6DDC500A73CCF /* stb_image_wrap.cpp */; };
 		2286952E22E19B1F00882BC8 /* model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2286952C22E19B1F00882BC8 /* model.cpp */; };
-		2286953022E19F0C00882BC8 /* libassimp.4.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2286952F22E19F0C00882BC8 /* libassimp.4.1.0.dylib */; };
 		22A7764D22D70B2500828762 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A7764B22D70B2500828762 /* camera.cpp */; };
 		22DBE26122D7D999006C760E /* mouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22DBE25F22D7D999006C760E /* mouse.cpp */; };
+		22F12DFC24077ADC000A9DFD /* libassimp.5.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F12DFB24077ADC000A9DFD /* libassimp.5.0.0.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -67,6 +67,7 @@
 		22AC40ED22E1597D00FE961B /* mesh.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = mesh.hpp; sourceTree = "<group>"; };
 		22DBE25F22D7D999006C760E /* mouse.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = mouse.cpp; sourceTree = "<group>"; };
 		22DBE26022D7D999006C760E /* mouse.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = mouse.hpp; sourceTree = "<group>"; };
+		22F12DFB24077ADC000A9DFD /* libassimp.5.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libassimp.5.0.0.dylib; path = ../../../../usr/local/Cellar/assimp/5.0.1/lib/libassimp.5.0.0.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,7 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2286953022E19F0C00882BC8 /* libassimp.4.1.0.dylib in Frameworks */,
+				22F12DFC24077ADC000A9DFD /* libassimp.5.0.0.dylib in Frameworks */,
 				2205194822C5FBFA000A44D3 /* libglfw.3.3.dylib in Frameworks */,
 				2205194922C5FBFA000A44D3 /* libGLEW.2.1.0.dylib in Frameworks */,
 				2205192E22C5E915000A44D3 /* OpenGL.framework in Frameworks */,
@@ -132,6 +133,7 @@
 		2205192C22C5E915000A44D3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				22F12DFB24077ADC000A9DFD /* libassimp.5.0.0.dylib */,
 				2286952F22E19F0C00882BC8 /* libassimp.4.1.0.dylib */,
 				2205194722C5FBFA000A44D3 /* libGLEW.2.1.0.dylib */,
 				2205194622C5FBFA000A44D3 /* libglfw.3.3.dylib */,
@@ -405,10 +407,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/usr/local/Cellar/glew/2.1.0/lib,
-					/usr/local/Cellar/glfw/3.3/lib,
+					/usr/local/Cellar/glew/2.1.0_1/lib,
+					/usr/local/Cellar/glfw/3.3.2/lib,
 					/usr/local/lib,
-					/usr/local/Cellar/assimp/4.1.0/lib,
+					/usr/local/Cellar/assimp/5.0.1/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -422,10 +424,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/usr/local/Cellar/glew/2.1.0/lib,
-					/usr/local/Cellar/glfw/3.3/lib,
+					/usr/local/Cellar/glew/2.1.0_1/lib,
+					/usr/local/Cellar/glfw/3.3.2/lib,
 					/usr/local/lib,
-					/usr/local/Cellar/assimp/4.1.0/lib,
+					/usr/local/Cellar/assimp/5.0.1/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "";

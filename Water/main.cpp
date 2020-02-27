@@ -52,7 +52,7 @@ int main( )
     GLfloat deltaTime = 0.0f;
     GLfloat lastFrame = 0.0f;
     
-    glm::vec3 lightPos(0.0f, 1.0f, 5.0f);
+    //glm::vec3 lightPos(0.0f, 1.0f, 5.0f);
     // Game loop
     while ( !glfwWindowShouldClose( W.window ) )
     {
